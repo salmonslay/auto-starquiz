@@ -2,7 +2,7 @@
 function init() {
 
     // Download answers
-    getJSON('https://raw.githubusercontent.com/LiterallyFabian/StarQuizSolver/master/app/answers.json',
+    getJSON('https://raw.githubusercontent.com/LiterallyFabian/auto-starquiz/master/answers.json',
         function (err, data) {
             if (err !== null) {
                 alert('Something went wrong: ' + err);
