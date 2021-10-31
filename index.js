@@ -38,6 +38,20 @@ function checkSockets() {
 function runGame(ws) {
     ws.addEventListener('message', function (event) {
         console.log('Message from MSP: ', event.data);
+        let match = /42.+quiz:chal.+QUIZ_.+Q(\d{0,3})_QUESTION/gm.exec(event.data);
+
+        // this is a question if my beautiful regex matches
+        if (match != null) {
+            let id = match[1];
+            let ans = answers[id];
+            let ansDelay = parseInt(getRandomArbitrary(3000, 8000));
+            print(`Answering in ${ansDelay}ms.`)
+
+            setTimeout(function () {
+                print("Answered!")
+                ws.send(`42["quiz:answer",{"answer":${ans+1}}]`)
+            }, ansDelay);
+        }
     });
 }
 
@@ -61,3 +75,8 @@ var getJSON = function (url, callback) {
     };
     xhr.send();
 };
+
+// get random number easily lol
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
