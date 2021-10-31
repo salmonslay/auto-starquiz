@@ -1,12 +1,16 @@
 // Get websockets
 function init() {
+
+    // Download answers
     getJSON('https://raw.githubusercontent.com/LiterallyFabian/StarQuizSolver/master/app/answers.json',
         function (err, data) {
             if (err !== null) {
                 alert('Something went wrong: ' + err);
             } else {
+                // Save answer data
                 answers = data;
 
+                // Start waiting for sockets
                 sockets = [];
                 var nativeWebSocket = window.WebSocket;
                 window.WebSocket = function (...args) {
@@ -31,14 +35,13 @@ function checkSockets() {
     }
 }
 
-
-
 function runGame(ws) {
     ws.addEventListener('message', function (event) {
-        console.log('2Message from server ', event.data);
+        console.log('Message from MSP: ', event.data);
     });
 }
 
+// print message that is easier to read
 function print(str) {
     console.log(`%c${str}`, "color: red; font-family: sans-serif; font-size: 4.5em; font-weight: bolder; text-shadow: #000 1px 1px;");
 }
